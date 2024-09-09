@@ -14,7 +14,7 @@ const slides = [
     {
         "image": "slide4.png",
         "tagLine": "Autocollants <span>avec découpe laser sur mesure</span>"
-    }
+    },
 ];
 
 let image_en_cours = 0;  
@@ -22,37 +22,51 @@ const nbimages = slides.length;
 const flechedroite = document.querySelector(".arrow_right"); 
 const flechegauche = document.querySelector(".arrow_left");  
 const limage = document.querySelector(".banner-img");  
+const dotsContainer = document.querySelector(".dots"); // Sélectionne le conteneur des dots
 
+// Fonction pour créer les dots en fonction du nombre d'images
+function createDots() {
+    // Réinitialiser le conteneur de dots
+    dotsContainer.innerHTML = '';
 
-function cliquedroit() {
-    image_en_cours++;  
-
-    
-    if (image_en_cours === nbimages) {
-        image_en_cours = 0;
+    // Créer un dot pour chaque image
+    for (let i = 0; i < nbimages; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        if (i === image_en_cours) {
+            dot.classList.add("dot_selected");
+        }
+        dotsContainer.appendChild(dot);
     }
-
-    changeslide();  
 }
 
-function cliquegauche() {
-    image_en_cours--;  
-
-    if (image_en_cours < 0) {  
-        image_en_cours = nbimages - 1;  
-    }
-
-    changeslide(); 
-}
-
+// Fonction pour mettre à jour le slide et les dots
 function changeslide() {
-    console.log(image_en_cours); 
     limage.src = "./assets/images/slideshow/" + slides[image_en_cours].image;  
     document.querySelector("#banner p").innerHTML = slides[image_en_cours].tagLine;  
 
-    document.querySelector(".dot_selected").classList.remove("dot_selected");
-    document.querySelectorAll(".dot")[image_en_cours].classList.add("dot_selected");
+    // Mettre à jour les dots
+    document.querySelectorAll(".dot").forEach((dot, index) => {
+        dot.classList.toggle("dot_selected", index === image_en_cours);
+    });
 }
 
+// Fonction pour gérer le clic sur la flèche droite
+function cliquedroit() {
+    image_en_cours = (image_en_cours + 1) % nbimages;
+    changeslide();  
+}
+
+// Fonction pour gérer le clic sur la flèche gauche
+function cliquegauche() {
+    image_en_cours = (image_en_cours - 1 + nbimages) % nbimages;
+    changeslide(); 
+}
+
+// Initialiser les dots et la première image
+createDots();
+changeslide();
+
+// Ajouter les événements de clic
 flechedroite.addEventListener("click", cliquedroit);
 flechegauche.addEventListener("click", cliquegauche);

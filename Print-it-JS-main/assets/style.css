@@ -127,21 +127,11 @@ header {
 	position: absolute;
 }
 #banner .arrow_left {
-	display: block;
-	position: absolute;
-	right: 850px;
+	left: 10px;
 }
 #banner .arrow_right {
-	display: block;
-	position: relative;
-	left: 850px;
+	right: 10px;
 }
-
-button {
-	background-color: transparent;
-	border: none;
-}
-
 /* Gestion des points du carrousel */
 .dots {
 	position: absolute;
@@ -285,6 +275,7 @@ footer {
 	align-items: center;
 }
 footer div {
+
 	position: relative;
 }
 .footer-logo {
