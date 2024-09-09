@@ -22,14 +22,11 @@ const nbimages = slides.length;
 const flechedroite = document.querySelector(".arrow_right"); 
 const flechegauche = document.querySelector(".arrow_left");  
 const limage = document.querySelector(".banner-img");  
-const dotsContainer = document.querySelector(".dots"); // Sélectionne le conteneur des dots
+const dotsContainer = document.querySelector(".dots");
 
-// Fonction pour créer les dots en fonction du nombre d'images
 function createDots() {
-    // Réinitialiser le conteneur de dots
     dotsContainer.innerHTML = '';
 
-    // Créer un dot pour chaque image
     for (let i = 0; i < nbimages; i++) {
         const dot = document.createElement("span");
         dot.classList.add("dot");
@@ -40,33 +37,29 @@ function createDots() {
     }
 }
 
-// Fonction pour mettre à jour le slide et les dots
+
 function changeslide() {
     limage.src = "./assets/images/slideshow/" + slides[image_en_cours].image;  
     document.querySelector("#banner p").innerHTML = slides[image_en_cours].tagLine;  
 
-    // Mettre à jour les dots
+    
     document.querySelectorAll(".dot").forEach((dot, index) => {
         dot.classList.toggle("dot_selected", index === image_en_cours);
     });
 }
 
-// Fonction pour gérer le clic sur la flèche droite
 function cliquedroit() {
     image_en_cours = (image_en_cours + 1) % nbimages;
     changeslide();  
 }
 
-// Fonction pour gérer le clic sur la flèche gauche
 function cliquegauche() {
     image_en_cours = (image_en_cours - 1 + nbimages) % nbimages;
     changeslide(); 
 }
 
-// Initialiser les dots et la première image
 createDots();
 changeslide();
 
-// Ajouter les événements de clic
 flechedroite.addEventListener("click", cliquedroit);
 flechegauche.addEventListener("click", cliquegauche);
